@@ -343,24 +343,41 @@ Afte making a new level test it by changing the in GameViewController.swift from
 
 `if let scene = GameScene.Load(level: 2) {`
 
-## SKActions 
+### Load a random level
 
-SKActions do things, almost everything you can think of. They really flexible, you can 
-probably make entire games built only on SKAction!
+How about loading a random level. Use `arc4random()` to generate a random `UInt32` between
+0 and 2,147,483,647. Use `%` (modulo) to get a number in a range. For example: 
+`arc4random() % 3` returns 0 to 2. 
 
-Add add the Sun image to your scene, give it the name: "Sun". You'll use this as a 
-"button". 
+If you have 3 levels generate a random number between 1 and 3: 
 
-How about loading a random level.
+`arc4random() % 3`.
+
+Since `arc4random()` returns a `UInit32` and `GameScene.load(level: Int)` requires an 
+`Int` convert your random number to an `Int`: 
+
+`Int(arc4random() % 3 + 1)`.
+
+### Add a button to load a new level
+
+Add the Sun image near the upper right corner. Give it the name: "Sun". 
+
+We want to know when the button is tapped. If Sun appears below the clouds checking 
+`atPoint()` only returns one Node at the location! If two nodes overlap use:
+`nodes(at: location)` this returns an array of `SKNode` You can loop through this array 
+and look at the name of each node. 
+
+Add this to `touchesBegan(_ touches: with event:)`.
 
 ```
-else if atPoint(location).name == "Sun" {
-    print("Random level button")
-    let n = Int(arc4random() % 3 + 1)
-    if let scene = GameScene.Load(level: n) {
-        scene.scaleMode = .aspectFill
-        if let view = view {
-            view.presentScene(scene)
+for node in nodes(at: location) {
+    if node.name == "Sun" {
+        let n = Int(arc4random() % 3 + 1)
+        if let scene = GameScene.Load(level: n) {
+            scene.scaleMode = .aspectFill
+            if let view = view {
+                view.presentScene(scene)
+            }
         }
     }
 }
@@ -368,10 +385,11 @@ else if atPoint(location).name == "Sun" {
 
 I had 3 levels in my example. Change the number 3 above to the number of levels you have. 
 
-When I created this example the clouds covered the Sun not allowing touch events to pass 
-through to the Sun. I fixed this after creating clouds in `didMove()`: 
+## Destroy some enemies
 
-`clouds.isUserInteractionEnabled = false`
+
+
+
 
 
 
