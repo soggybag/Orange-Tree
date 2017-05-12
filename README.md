@@ -264,7 +264,7 @@ You can add a nice background effect of clouds floating by using particles.
 
 - Add a new file. Choose: SpriteKit Particle File
     - Choose: Fire
-    - Name this file: CloudsEmitter
+    - Name this file: CloudEmitter
 
 You should see a preview of the emitter. Set these properties: 
 
