@@ -383,10 +383,101 @@ for node in nodes(at: location) {
 }
 ```
 
-I had 3 levels in my example. Change the number 3 above to the number of levels you have. 
+I had 3 levels in my example. Change the number 3 above to the number of levels you have.
 
-## Destroy some enemies
 
+## Count the Oranges
+
+Keeping track of Oranges might be a good way to keep score.
+
+- Open *Level_1.sks* 
+    - Drag a *Label* into the upper left corner.
+    - Set the color, size and Font
+    - Set the name to "CountLabel"
+    - Copy this label node and paste into each Level scene you created. 
+
+Add a var to hold a reference to the label at the top of `GameScene`:
+
+`var countLabel: SKLabelNode!`
+
+In `didMove(to view:)` connect this to the label: 
+
+`countLabel = childNode(withName: "CountLabel") as! SKLabelNode`
+
+Now add a var to keep track of the count. At the top of `GameScene`:
+
+`var count: Int = 0 {
+    didSet {
+        countLabel.text = "\(count)"
+    }
+}`
+
+This is a "Computed property" Changing the of `count` value executes the code in the 
+`didSet` block. 
+
+Add the following inside the `touchesEnded(_ touches: with event:)` inside the if block:
+
+`count += 1`
+
+
+## Destroy some blocks
+
+The first step to destroying blocks is making blocks to destroy! In my example I used the
+"Skull". Add some Skull blocks to your Level scenes. 
+
+- Drag the Skull image from the Media Library
+    - Set name: BlockHead
+    - Set Physics Body: Bounding Rectangle
+    - Set Contact Mask: 4294967295 (Hint: it should be 0 by default click the small down arrow on the right)
+
+### Setting up the Contact Delegate
+
+To destroy enemies you need to know when bodies make contact. Bodies in this case are 
+physics bodies (`SKPhysicsBody`). A contact always occurs between two bodies, and only 
+when the `categoryBitmask` and `contactBitmask` match (this deserves it's own 
+discussion... This why we set the Contact Mask above to 4294967295. This setting says 
+these bodies should contact all others.)
+
+You scene is notified of contacts via `physicsWorld.contactDelegate` in other words when
+your scene is the contact delegate for the physics world it handles contacts that occur. 
+
+Make your scene conform to the `SKPhysicsContactDelegate` protocol by adding it to the 
+definition at the top of the `GameScene` class. Should look like this:
+
+`class GameScene: SKScene, SKPhysicsContactDelegate { ...`
+
+Next set your scene as the contact delegate for the physics world by adding the following 
+to `didMove(to view:)`.
+
+`physicsWorld.contactDelegate = self`
+
+Last add these two functions to the `GameScene` class. The first is the delegate method,
+Xcode should offer to code hint this. The second is a helper function you are defining 
+yourself, you'll have to write that one on your own. 
+
+```
+func didBegin(_ contact: SKPhysicsContact) {
+    let nodeA = contact.bodyA.node
+    let nodeB = contact.bodyB.node
+    
+    if contact.collisionImpulse > 6 {
+        if nodeA?.name == "BlockHead" {
+            removeBlockHead(node: nodeA!)
+        } else if nodeB?.name == "BlockHead" {
+            removeBlockHead(node: nodeB!)
+        }
+    }
+}
+
+func removeBlockHead(node: SKNode) {
+    node.removeFromParent()
+}
+```
+
+A contact occurs between two bodies: `bodyA` and `bodyB`. Physics bodies have a node 
+property. This is the Sprite node you see on the screen, it owns the `name` property. 
+You'll need to check the name of both `bodyA` and `bodyB`. If the name is "BlockHead"
+we can remove that node. 
 
 
 
