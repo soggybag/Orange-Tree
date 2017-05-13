@@ -11,6 +11,18 @@ When you're done the game should look something like this:
 
 Resources for this project are located here: [Smashing-Things.atlas](Smashing-Things.atlas.zip)
 
+## Earn the Badge! 
+
+Completes this tutorial and earn this digital badge!
+
+![badge](make-hacks-badge-spritekit.png)
+
+To earn the badge complete the tutorial. Post your work to Github, send me a link to your 
+work. 
+
+Digital badges are are images that contain meta data that describe your achievments. Read
+more about digital badges [here](https://openbadges.org).
+
 ## Make a new Xcode project
 
 - make a new Xcode project choose SpriteKit as the Template. 
