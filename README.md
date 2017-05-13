@@ -479,7 +479,62 @@ property. This is the Sprite node you see on the screen, it owns the `name` prop
 You'll need to check the name of both `bodyA` and `bodyB`. If the name is "BlockHead"
 we can remove that node. 
 
+## SKAction
 
+SKAction is a class that is ridiculously flexible. Mostly you'll use it to animate things. 
+But it does a lot more. Here we'll use it to remove a particle effect after we're 
+done with it. 
+
+### Make a Poof
+
+When the Skulls disappear it would be nice if there was a poof of particles. Make a new 
+Particle file. 
+
+- File > New > SpriteKit Particle
+    - Choose: Fire 
+    - Save your file as: Poof
+    - Use these settings:
+        - Emitter Bithrate: 400 Maximum: 160
+        - Life Time Start: 2
+        - Position Range x: 28 y: 28
+        - Angle Start: 90 Range: 45
+        - Speed Start: 120 Range: 50
+        - Set the color to something you like
+
+### Use an Action
+
+Here you'll make make a particle emitter from the Poof, and remove it with an action. 
+Add the following to the `removeBlockHead()` method *before* `node.removeFromParent()`:
+
+```
+if let poof = SKEmitterNode(fileNamed: "Poof") {
+    addChild(poof)
+    poof.position.x = node.position.x
+    poof.position.y = node.position.y
+    let wait = SKAction.wait(forDuration: 3)
+    let remove = SKAction.removeFromParent()
+    let byePoof = SKAction.sequence([wait, remove])
+    poof.run(byePoof)
+}
+```
+
+Here you made an `SKEmitterNode` from the file "Poof", added it as a child of the scene, 
+positioned it at the location of the block you are removing. Then you created three 
+actions. The first waits 3 seconds, the second removes a node from the scene, the last 
+is a sequence of first to actions (bye poof). The last step is to run the action on the 
+emitter node. 
+
+## Thanks!
+
+Hope you enjoyed this tutorial. I'd love to hear your feedback, questions, and comments. 
+Post an issue to this Github prepository.
+
+Be sure to challenge yourself to expand on the ideas presented here as much as you like. 
+Try some of these ideas: 
+
+- Add a particle trail to the Orange
+- Add different backgrounds for each Level.sks
+- Add some new object types that you can hit with the oranges
 
 
 
