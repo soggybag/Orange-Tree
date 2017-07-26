@@ -76,7 +76,7 @@ give show you some hints, choose what you are looking for from the menu and hit 
 
 Tab between parameters as you fill them. 
 
-Open GameScene.swift and delete everything there and replace it with:
+Open `GameScene.swift` and delete everything there and replace it with:
 
 ```
 import SpriteKit
@@ -87,6 +87,16 @@ class GameScene: SKScene {
 ```
 
 You will be adding more to this later. 
+
+Open `GameViewController.swift` find this line: 
+
+`if let scene = SKScene(fileNamed: "GameScene") {`
+
+And change to: 
+
+`if let scene = GameScene(fileNamed: "GameScene") {`
+
+Now our view controller will load the `GameScene` class (defined in GameScene.swift) with `GameScene.sks`.
 
 ### Add an Orange
 
