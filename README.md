@@ -29,6 +29,7 @@ more about digital badges [here](https://openbadges.org).
 
 ## Set up the project
 
+- Select the project, in "Device Orientation" uncheck "Portrait"
 - Delete Actions.sks.
 - Drag 'Smashing-Things.atlas' into the project navigator.
 - Open GameScene.sks and delete objects there. 
