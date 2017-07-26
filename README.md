@@ -86,6 +86,8 @@ class GameScene: SKScene {
 }
 ```
 
+You will be adding more to this later. 
+
 ### Add an Orange
 
 Let's make the Orange from code. Add a class file to define the Orange. File new File, 
