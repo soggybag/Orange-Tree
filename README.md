@@ -76,6 +76,8 @@ give show you some hints, choose what you are looking for from the menu and hit 
 
 Tab between parameters as you fill them. 
 
+Open GameScene.swift and delete everything there and replace it with:
+
 ```
 import SpriteKit
 
