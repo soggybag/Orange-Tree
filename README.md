@@ -129,7 +129,7 @@ class Orange: SKSpriteNode {
 
 ### Fire some Oranges!
 
-Open GameScene.swift. All of the following will go inside the GameScene class. 
+Open `GameScene.swift`. All of the following will go inside the GameScene class. 
 
 #### Add some vars 
 
@@ -182,7 +182,7 @@ This system will require create an Orange when a touch begins, move the orange t
 your finger as the touch moves, then fire the orange when the touch ends. 
 
 To generate the launch vector we need to know the position where the touch began. 
-Add this variable at the top of the GameScene class: 
+Add this variable at the top of the `GameScene` class: 
 
 `var touchStart: CGPoint = CGPoint.zero`
 
@@ -245,7 +245,7 @@ Might be nice to draw a line showing the angle to launch an orange.
 
 ### SKShapeNode 
 
-Use an SKShapeNode. Add a shape node and draw a line in touches moved. 
+Use an `SKShapeNode`. Add a shape node and draw a line in touches moved. 
 
 Add a var to hold the shape node. Add this to the top of the `GameScene` class. 
 
@@ -253,7 +253,7 @@ Add a var to hold the shape node. Add this to the top of the `GameScene` class.
 
 ### Configure the shape node
 
-Add this to didMove(to view:)
+Add this to `didMove(to view:)`
 
 ```
 addChild(shapeNode)
@@ -265,7 +265,7 @@ shapeNode.strokeColor = UIColor(white: 1, alpha: 0.3)
 ### Draw a line
 
 Draw a line by moving to the starting point, then adding a line. Add the following to 
-touchesMoved(_ touches: with event:) at the end of the method:
+`touchesMoved(_ touches: with event:)` at the end of the method:
 
 ```
 let path = UIBezierPath()
@@ -277,7 +277,7 @@ shapeNode.path = path.cgPath
 ### Remove the path
 
 Remove the path, not the shape, when touches end. Add the following to 
-touchesEnded(_ touches: with event:) at the end of the method:
+`touchesEnded(_ touches: with event:)` at the end of the method:
 
 `shapeNode.path = nil`
 
@@ -295,23 +295,39 @@ You can add a nice background effect of clouds floating by using particles.
 
 You should see a preview of the emitter. Set these properties: 
 
-- Texture: CloudOne
-- Birthrate: 0.2
-- Lifetime: 200
-- Position Range x: -200 y: 150
-- Angle Start: 0 Range: 0
-- Speed Start: 10 Range: 5
-- Alpha Start: 33 Range: 0.2 Speed: 0
-- Scale Start: 0.25 Range: 0.2 Speed: 0
-- Rotation Start: 0 Speed: 0
-- Color Blend Factor: 1 Range: 0 Speed: 0
+- Particles
+    - Texture: CloudOne
+- Emitter
+    - Birthrate: 0.2
+- Lifetime 
+    - Start: 200
+- Position Range 
+    - x: -200 
+    - y: 150
+    - Angle Start: 0 Range: 0
+    - Speed Start: 10 Range: 5
+- Alpha 
+    - Start: 33 
+    - Range: 0.2 
+    - Speed: 0
+- Scale 
+    - Start: 0.5 
+    - Range: 0.2 
+    - Speed: 0
+- Rotation 
+    - Start: 0 
+    - Speed: 0
+- Color Blend
+    - Factor: 1 
+    Range: 0 
+    Speed: 0
 - Color Ramp: Set the color to White
 - Blend mode: Alpha
 
 ### Add an SKEmitter
 
 Add your particle to the scene by creating an instance of SKEmitter. Add the following 
-to `didMove(to view:)` in GameScene.swift:
+to `didMove(to view:)` in `GameScene.swift`:
 
 ```
 if let clouds = SKEmitterNode(fileNamed: "CloudEmitter") {
@@ -325,8 +341,8 @@ if let clouds = SKEmitterNode(fileNamed: "CloudEmitter") {
 
 ## Making more levels 
 
-An SKScene can be loaded with any .sks file. This means you can use GameScene.swift
-with Level_1.sks, and Level_2.sks. 
+An SKScene can be loaded with any .sks file. This means you can use `GameScene.swift`
+with `Level_1.sks`, and `Level_2.sks`. 
 
 Your .sks files will need to have all of the objects your Scene.swift file expects!
 
@@ -339,19 +355,19 @@ static func Load(level: Int) -> GameScene? {
 }
 ```
 
-Call this method on the GameScene class with the number of the level to load and it 
+Call this method on the `GameScene` class with the number of the level to load and it 
 returns GameScene initialized with that Level sks file. 
 
-Change the name of GameScene.sks to Level_1.sks. 
+Change the name of `GameScene.sks` to `Level_1.sks`. 
 
-You'll need to change the way GameScene is first loaded in GameViewController.swift. 
+You'll need to change the way `GameScene` is first loaded in `GameViewController.swift`. 
 
 Change: `if let scene = SKScene(fileNamed: "GameScene") {` 
 to: `if let scene = GameScene.Load(level: 1) {`
 
-This should load GameScene.swift with Level_1.sks. 
+This should load `GameScene.swift` with `Level_1.sks`. 
 
-All scene levels will be named Level_#.sks where # will be an integer: 1, 2, 3 etc. 
+All scene levels will be named `Level_#.sks` where `#` will be an integer: 1, 2, 3 etc. 
 
 ### Make a new Level
 
@@ -363,10 +379,10 @@ have the name: OrangeTree in the new level.
 Use the same Physics settings and options to get the same effect. 
 
 The easiest way to create a new level is to duplicate the previous level and modify it. 
-Select Level_1.sks in the project outline and choose File > Duplicate. Name the new 
-file Level_2.sks
+Select `Level_1.sks` in the project outline and choose File > Duplicate. Name the new 
+file `Level_2.sks`
 
-Afte making a new level test it by changing the in GameViewController.swift from 1 to 2: 
+After making a new level test it by changing the in `GameViewController.swift` from 1 to 2: 
 
 `if let scene = GameScene.Load(level: 2) {`
 
