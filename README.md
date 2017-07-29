@@ -25,7 +25,7 @@ more about digital badges [here](https://openbadges.org).
 
 ## Make a new Xcode project
 
-- make a new Xcode project choose SpriteKit as the Template. 
+- Make a new Xcode project. Choose SpriteKit as the Template. 
 
 ## Set up the project
 
